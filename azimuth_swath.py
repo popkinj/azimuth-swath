@@ -183,6 +183,10 @@ class AzimuthSwath:
 
 
     def run(self):
+        lat = 49.98813
+        lon = -126.17261
+        angle = 300
+        length = 10000
         """Run method that performs all the real work"""
         # show the dialog
         self.dlg.show()
@@ -190,7 +194,15 @@ class AzimuthSwath:
         result = self.dlg.exec_()
         # See if OK was pressed
         if result:
-            vl = QgsVectorLayer("Point?crs=epsg:4326", "temporary_points", "memory")
-            QgsMessageLog.logMessage('Yo yo', 'Azimuth Swath')
+            vl = QgsVectorLayer("Point?crs=epsg:4326", "Swath", "memory")
+            pr = vl.dataProvider()
+            vl.startEditing()
+            origin = QgsFeature()
+            origin.setGeometry(QgsGeometry.fromPoint(QgsPoint(lon,lat)))
+            pr.addFeatures([origin])
+            vl.commitChanges()
+            vl.updateExtents()
+
+            # QgsMessageLog.logMessage('Yo yo', 'Azimuth Swath')
             QgsMapLayerRegistry.instance().addMapLayer(vl)
             pass
