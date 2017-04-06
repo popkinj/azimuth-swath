@@ -184,16 +184,36 @@ class AzimuthSwath:
 
 
     def run(self):
+        ####################
+        # These will all be replaced
         lat = 551755
         lon = 987397
+        resolution = 10 # How many vertices in the fan
         angle = math.radians(270)
-        QgsMessageLog.logMessage("angle: "+str(angle), 'Azimuth Swath')
+        variance = math.radians(7) # 5 degrees each side of angle
         length = 10000
+        epsg = "epsg:3005"
+        ####################
 
-        p1x = lon + (math.sin(angle) * length)
-        p1y = lat + (math.cos(angle) * length)
-        QgsMessageLog.logMessage("p1x: "+str(p1x), 'Azimuth Swath')
-        QgsMessageLog.logMessage("p1y: "+str(p1y), 'Azimuth Swath')
+        # Calculate the fan points
+        start = angle - variance
+        diff = variance * 2
+        inc = diff / resolution
+        vertices = [ # The vertex array
+            QgsPoint(lon,lat)
+        ]
+
+        for i in range(resolution + 1):
+            a = i*inc+start
+            x = lon + (math.sin(a) * length)
+            y = lat + (math.cos(a) * length)
+            vertices.append(QgsPoint(x,y))
+
+        # Close polygon
+        vertices.append(QgsPoint(lon,lat))
+
+        # QgsMessageLog.logMessage("p1x: "+str(p1x), 'Azimuth Swath')
+        # QgsMessageLog.logMessage("p1y: "+str(p1y), 'Azimuth Swath')
 
         """Run method that performs all the real work"""
         # show the dialog
@@ -202,19 +222,19 @@ class AzimuthSwath:
         result = self.dlg.exec_()
         # See if OK was pressed
         if result:
-            vl = QgsVectorLayer("Point?crs=epsg:3005", "Swath", "memory")
+            vl = QgsVectorLayer("LineString?crs="+epsg, "Swath", "memory")
             pr = vl.dataProvider()
             vl.startEditing()
 
             # Origin is given
             origin = QgsFeature()
-            origin.setGeometry(QgsGeometry.fromPoint(QgsPoint(lon,lat)))
+            origin.setGeometry(QgsGeometry.fromPolyline(vertices))
 
             # Zero error end point
-            p1 = QgsFeature()
-            p1.setGeometry(QgsGeometry.fromPoint(QgsPoint(p1x,p1y)))
+            # p1 = QgsFeature()
+            # p1.setGeometry(QgsGeometry.fromPoint(QgsPoint(p1x,p1y)))
 
-            pr.addFeatures([origin,p1])
+            pr.addFeatures([origin])
 
             vl.commitChanges()
             vl.updateExtents()
