@@ -190,7 +190,7 @@ class AzimuthSwath:
         result = self.dlg.exec_()
         # See if OK was pressed
         if result:
-            vl = QgsVectorLayer("Point", "temporary_points", "memory")
+            vl = QgsVectorLayer("Point?crs=epsg:4326", "temporary_points", "memory")
             QgsMessageLog.logMessage('Yo yo', 'Azimuth Swath')
             QgsMapLayerRegistry.instance().addMapLayer(vl)
             pass
