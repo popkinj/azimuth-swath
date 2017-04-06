@@ -27,6 +27,7 @@ import resources
 # Import the code for the dialog
 from azimuth_swath_dialog import AzimuthSwathDialog
 import os.path
+import math
 from qgis.core import *
 # from qgis.core import QgsMessageLog, QgsVectorLayer
 
@@ -183,10 +184,17 @@ class AzimuthSwath:
 
 
     def run(self):
-        lat = 49.98813
-        lon = -126.17261
-        angle = 300
+        lat = 551755
+        lon = 987397
+        angle = math.radians(270)
+        QgsMessageLog.logMessage("angle: "+str(angle), 'Azimuth Swath')
         length = 10000
+
+        p1x = lon + (math.sin(angle) * length)
+        p1y = lat + (math.cos(angle) * length)
+        QgsMessageLog.logMessage("p1x: "+str(p1x), 'Azimuth Swath')
+        QgsMessageLog.logMessage("p1y: "+str(p1y), 'Azimuth Swath')
+
         """Run method that performs all the real work"""
         # show the dialog
         self.dlg.show()
@@ -194,12 +202,20 @@ class AzimuthSwath:
         result = self.dlg.exec_()
         # See if OK was pressed
         if result:
-            vl = QgsVectorLayer("Point?crs=epsg:4326", "Swath", "memory")
+            vl = QgsVectorLayer("Point?crs=epsg:3005", "Swath", "memory")
             pr = vl.dataProvider()
             vl.startEditing()
+
+            # Origin is given
             origin = QgsFeature()
             origin.setGeometry(QgsGeometry.fromPoint(QgsPoint(lon,lat)))
-            pr.addFeatures([origin])
+
+            # Zero error end point
+            p1 = QgsFeature()
+            p1.setGeometry(QgsGeometry.fromPoint(QgsPoint(p1x,p1y)))
+
+            pr.addFeatures([origin,p1])
+
             vl.commitChanges()
             vl.updateExtents()
 
