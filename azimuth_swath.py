@@ -222,17 +222,13 @@ class AzimuthSwath:
         result = self.dlg.exec_()
         # See if OK was pressed
         if result:
-            vl = QgsVectorLayer("LineString?crs="+epsg, "Swath", "memory")
+            vl = QgsVectorLayer("Polygon?crs="+epsg, "Swath", "memory")
             pr = vl.dataProvider()
             vl.startEditing()
 
             # Origin is given
             origin = QgsFeature()
-            origin.setGeometry(QgsGeometry.fromPolyline(vertices))
-
-            # Zero error end point
-            # p1 = QgsFeature()
-            # p1.setGeometry(QgsGeometry.fromPoint(QgsPoint(p1x,p1y)))
+            origin.setGeometry(QgsGeometry.fromPolygon([vertices]))
 
             pr.addFeatures([origin])
 
