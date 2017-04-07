@@ -76,22 +76,6 @@
      <string/>
     </property>
    </widget>
-   <widget class="QComboBox" name="projection">
-    <property name="geometry">
-     <rect>
-      <x>22</x>
-      <y>85</y>
-      <width>211</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Choose projection&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-    <property name="whatsThis">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Projection chooser&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
@@ -118,17 +102,36 @@
      <string>Y:</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_7">
+   <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>250</x>
-      <y>90</y>
-      <width>71</width>
-      <height>20</height>
+      <x>10</x>
+      <y>82</y>
+      <width>141</width>
+      <height>28</height>
      </rect>
     </property>
     <property name="text">
-     <string>Projection</string>
+     <string>Select Projection</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>80</y>
+      <width>143</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>Or just enter it manually</string>
+    </property>
+    <property name="whatsThis">
+     <string>Or just enter it manually</string>
+    </property>
+    <property name="text">
+     <string>EPSG:4326</string>
     </property>
    </widget>
   </widget>
