@@ -7,7 +7,7 @@
 # This file should be included when you package your plugin.# Mandatory items:
 
 [general]
-name=Azimuth Swatch
+name=Azimuth Swath
 qgisMinimumVersion=2.0
 description=Create a polygon based on a coordinate, direction, and direction variance.
 version=0.1
