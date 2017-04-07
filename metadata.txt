@@ -16,8 +16,8 @@ email=popkinj@littleearth.ca
 
 about=Used in field transacts where an observer has a starting location and direction of travel. The resulting polygon is used to estimate possible area covered. The direction variance is used as an estimate of possible error in direction of travel.
 
-tracker=https://littleearth.ca
-repository=https://littleearth.ca
+tracker=https://github.com/popkinj/azimuth-swath/issues
+repository=https://github.com/popkinj/azimuth-swath
 # End of mandatory metadata
 
 # Recommended items:
@@ -28,7 +28,7 @@ repository=https://littleearth.ca
 # Tags are comma separated with spaces allowed
 tags=
 
-homepage=
+homepage=https://github.com/popkinj/azimuth-swath
 category=Plugins
 icon=icon.png
 # experimental flag
