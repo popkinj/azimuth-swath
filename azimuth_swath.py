@@ -212,14 +212,12 @@ class AzimuthSwath:
         # Close polygon
         vertices.append(QgsPoint(lon,lat))
 
-        # QgsMessageLog.logMessage("p1x: "+str(p1x), 'Azimuth Swath')
-        # QgsMessageLog.logMessage("p1y: "+str(p1y), 'Azimuth Swath')
-
         """Run method that performs all the real work"""
         # show the dialog
         self.dlg.show()
         # Run the dialog event loop
         result = self.dlg.exec_()
+
         # See if OK was pressed
         if result:
             vl = QgsVectorLayer("Polygon?crs="+epsg, "Swath", "memory")
