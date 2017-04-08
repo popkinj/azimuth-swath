@@ -20,8 +20,8 @@
  *                                                                         *
  ***************************************************************************/
 """
-from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
-from PyQt4.QtGui import QAction, QIcon
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 # Initialize Qt resources from file resources.py
 import resources
 # Import the code for the dialog
@@ -29,6 +29,7 @@ from azimuth_swath_dialog import AzimuthSwathDialog
 import os.path
 import math
 from qgis.core import *
+from qgis.gui import QgsGenericProjectionSelector, QgsProjectionSelector
 # from qgis.core import QgsMessageLog, QgsVectorLayer
 
 
@@ -45,6 +46,10 @@ class AzimuthSwath:
         """
         # Save reference to the QGIS interface
         self.iface = iface
+
+        self.dlg = AzimuthSwathDialog()
+
+
         # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
         # initialize locale
@@ -69,6 +74,20 @@ class AzimuthSwath:
         self.toolbar = self.iface.addToolBar(u'AzimuthSwath')
         self.toolbar.setObjectName(u'AzimuthSwath')
 
+        # self.dlg.pushButton.clicked.connect(self.dlg.show)
+        # QgsMessageLog.logMessage(str(type(self.dlg.pushButton)), "mine")
+        # button = QPushButton("blah")
+        # QgsMessageLog.logMessage(str(type(button)), "mine")
+
+        self.dlg.crsButton.clicked.connect(lambda:
+            QgsMessageLog.logMessage("yo", "mine")
+        )
+
+        # self.dlg.distance.keyPressEvent.connect(lambda:
+        #     QgsMessageLog.logMessage("yoyo", "mine")
+        # )
+        # QgsMessageLog.logMessage(repr(self.dlg.pushButton), "mine")
+
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
         """Get the translation for a string using Qt translation API.
@@ -83,6 +102,10 @@ class AzimuthSwath:
         """
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
         return QCoreApplication.translate('AzimuthSwath', message)
+
+    def selectcrs (self):
+        QgsMessageLog.logMessage('Yo yo', 'Azimuth Swath')
+        # QgsMessageLog.logMessage("message", "name")
 
 
     def add_action(
@@ -209,6 +232,7 @@ class AzimuthSwath:
             y = lat + (math.cos(a) * length)
             vertices.append(QgsPoint(x,y))
 
+        print("yoyo")
         # Close polygon
         vertices.append(QgsPoint(lon,lat))
 
@@ -217,6 +241,11 @@ class AzimuthSwath:
         self.dlg.show()
         # Run the dialog event loop
         result = self.dlg.exec_()
+
+        # self.dlg = AzimuthSwathDialog()
+        # self.dlg.pushButton.clicked.connect(self.selectcrs)
+        # self.dlg.pushButton.clicked.connect(self.selectcrs)
+        # QgsMessageLog.logMessage(repr(self.selectcrs), "mine")
 
         # See if OK was pressed
         if result:

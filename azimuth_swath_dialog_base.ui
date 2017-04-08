@@ -102,7 +102,7 @@
      <string>Y:</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="crsButton">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -304,8 +304,8 @@
     <string>Outer fan resolution in # of vertices</string>
    </property>
   </widget>
-  <zorder>groupBox_2</zorder>
   <zorder>groupBox</zorder>
+  <zorder>groupBox_2</zorder>
   <zorder>button_box</zorder>
   <zorder>line</zorder>
   <zorder>line_2</zorder>
@@ -314,6 +314,7 @@
   <zorder>resolution</zorder>
   <zorder>label_2</zorder>
   <zorder>label_3</zorder>
+  <zorder>crsButton</zorder>
  </widget>
  <resources/>
  <connections>
