@@ -57,7 +57,7 @@
      <string>Enter X/Longitude in projection coordinate</string>
     </property>
     <property name="text">
-     <string/>
+     <string>1974792</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="latitude">
@@ -73,7 +73,7 @@
      <string>Enter Y/Latitude in projection coordinates</string>
     </property>
     <property name="text">
-     <string/>
+     <string>5771347</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_5">
@@ -103,6 +103,9 @@
     </property>
    </widget>
    <widget class="QPushButton" name="crsButton">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -115,7 +118,10 @@
      <string>Select Projection</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="epsg">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>160</x>
@@ -131,7 +137,7 @@
      <string>Or just enter it manually</string>
     </property>
     <property name="text">
-     <string>EPSG:4326</string>
+     <string>EPSG:2193</string>
     </property>
    </widget>
   </widget>
@@ -170,7 +176,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>100</string>
+     <string>500</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">
@@ -186,10 +192,6 @@
      <string>Travel in projection units</string>
     </property>
    </widget>
-   <zorder>distance</zorder>
-   <zorder>label_4</zorder>
-   <zorder>projection</zorder>
-   <zorder>groupBox</zorder>
   </widget>
   <widget class="Line" name="line_2">
    <property name="geometry">
@@ -314,7 +316,6 @@
   <zorder>resolution</zorder>
   <zorder>label_2</zorder>
   <zorder>label_3</zorder>
-  <zorder>crsButton</zorder>
  </widget>
  <resources/>
  <connections>

@@ -207,48 +207,51 @@ class AzimuthSwath:
 
 
     def run(self):
-        ####################
-        # These will all be replaced
-        lat = 551755
-        lon = 987397
-        resolution = 10 # How many vertices in the fan
-        angle = math.radians(270)
-        variance = math.radians(7) # 5 degrees each side of angle
-        length = 10000
-        epsg = "epsg:3005"
-        ####################
-
-        # Calculate the fan points
-        start = angle - variance
-        diff = variance * 2
-        inc = diff / resolution
-        vertices = [ # The vertex array
-            QgsPoint(lon,lat)
-        ]
-
-        for i in range(resolution + 1):
-            a = i*inc+start
-            x = lon + (math.sin(a) * length)
-            y = lat + (math.cos(a) * length)
-            vertices.append(QgsPoint(x,y))
-
-        print("yoyo")
-        # Close polygon
-        vertices.append(QgsPoint(lon,lat))
 
         """Run method that performs all the real work"""
         # show the dialog
         self.dlg.show()
+
         # Run the dialog event loop
         result = self.dlg.exec_()
 
-        # self.dlg = AzimuthSwathDialog()
-        # self.dlg.pushButton.clicked.connect(self.selectcrs)
         # self.dlg.pushButton.clicked.connect(self.selectcrs)
         # QgsMessageLog.logMessage(repr(self.selectcrs), "mine")
 
         # See if OK was pressed
         if result:
+
+
+            epsg = "epsg:2193" 
+            epsg = self.dlg.epsg.text()
+            lon = float(self.dlg.longitude.text())
+            lat = float(self.dlg.latitude.text())
+            length = float(self.dlg.distance.text())
+            angle = math.radians(float(self.dlg.direction.text()))
+            variance = math.radians(float(self.dlg.variance.text()))
+            resolution = int(self.dlg.resolution.text())
+
+            # QgsMessageLog.logMessage(distance, 'Azimuth Swath')
+
+
+            # Calculate the fan points
+            start = angle - variance
+            diff = variance * 2
+            inc = diff / resolution
+            vertices = [ # The vertex array
+                QgsPoint(lon,lat)
+            ]
+
+            for i in range(resolution + 1):
+                a = i*inc+start
+                x = lon + (math.sin(a) * length)
+                y = lat + (math.cos(a) * length)
+                vertices.append(QgsPoint(x,y))
+
+            # Close polygon
+            vertices.append(QgsPoint(lon,lat))
+
+
             vl = QgsVectorLayer("Polygon?crs="+epsg, "Swath", "memory")
             pr = vl.dataProvider()
             vl.startEditing()
@@ -262,6 +265,5 @@ class AzimuthSwath:
             vl.commitChanges()
             vl.updateExtents()
 
-            # QgsMessageLog.logMessage('Yo yo', 'Azimuth Swath')
             QgsMapLayerRegistry.instance().addMapLayer(vl)
             pass
